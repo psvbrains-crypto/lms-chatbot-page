@@ -102,11 +102,15 @@
   </style>
 </head>
 <body>
-  <header>Lawrenceville Main Street AI Donor Engagement Chatbot</header>
+  <header>Lawrenceville Main Street Donor Chat</header>
   <main>
     <div class="intro">
       <p>Welcome, Lawrenceville Main Street team! Use this AI assistant to generate personalized donor outreach strategies and email drafts, helping strengthen your community relationships efficiently and effectively.</p>
-      <p><strong>Instructions:</strong> Click the “Launch Chatbot” button below, enter donor information, and get tailored recommendations.</p>
+      <p><strong>Instructions:</strong> Click the “Launch Chatbot” button below, enter donor information in the table format below for optimal performance, and get tailored recommendations.</p>
+      <p><em>Expected data format example:</em></p>
+      <pre style="background:#f0f0f0; padding:10px; border-radius:8px; font-family: monospace;">
+Donor Name: {donor name}, Email: {email}, Business: {business name}, Last Donation Date: {dd/mm/yyyy}, Amount Donated: {$number}, Number of Total Donations: {number}, Preferred Contact Method: {email, mobile, or mail}
+      </pre>
     </div>
     <div class="chat-launcher">
       <button id="chat-launch" data-buildship-chat-widget-button>Launch Chatbot</button>
@@ -122,9 +126,10 @@
       window.buildShipChatWidget.config.url =
         "https://hrmw9b.buildship.run/executeWorkflow/505pze1D0jSaNROVQ8Lb/df26a9ec-e580-43ca-b676-e04d22f6b41e";
 
-      window.buildShipChatWidget.config.widgetTitle = "LMS Donor Chat";
+      // Update the widget title and greeting message:
+      window.buildShipChatWidget.config.widgetTitle = "Lawrenceville Main Street Donor Chat";
       window.buildShipChatWidget.config.greetingMessage =
-        "Hi! I’m your AI donor engagement assistant. Enter donor details and I’ll suggest outreach strategies and email drafts for Lawrenceville Main Street.";
+        "Hi! I’m your AI donor engagement assistant. Enter donor details and I’ll suggest outreach strategies and email drafts for Lawrenceville Main Street. Please provide data in table format like this for optimal performance: \"Donor Name: {donor name}, Email: {email}, Business: {business name}, Last Donation Date: {dd/mm/yyyy}, Amount Donated: {$number}, Number of Total Donations: {number}, Preferred Contact Method: {email, mobile, or mail}\".";
       window.buildShipChatWidget.config.responseIsAStream = false;
       window.buildShipChatWidget.config.closeOnOutsideClick = true;
       window.buildShipChatWidget.config.openOnLoad = false;
