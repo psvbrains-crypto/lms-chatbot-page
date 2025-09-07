@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lawrenceville Main Street AI Donor Engagement Chatbot</title>
+  <script src="https://unpkg.com/@buildshipapp/chat-widget@^1" defer></script>
+  <!-- Google Fonts for clean, modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(120deg, #e3ecf9 0%, #f3f7fb 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    h1 {
+      color: #194977;
+      margin-top: 3rem;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .description {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(100,100,100,0.07);
+      padding: 2rem;
+      max-width: 500px;
+      margin: 1.5rem auto 2rem auto;
+      font-size: 1.1rem;
+      color: #222;
+      text-align: center;
+    }
+    #chat-launch {
+      background-color: #1c87d1;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 1.1rem;
+      padding: 0.8rem 2.2rem;
+      margin-bottom: 2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    #chat-launch:hover {
+      background-color: #14568c;
+    }
+    footer {
+      margin-top: auto;
+      padding: 1.5rem 0 0.8rem 0;
+      color: #aaa;
+      text-align: center;
+      font-size: 0.92rem;
+    }
+    @media (max-width: 600px) {
+      .description { padding: 1rem; font-size: 1rem; }
+      h1 { font-size: 1.3rem; margin-top: 1.3rem; }
+      #chat-launch { padding: 0.7rem 1.4rem; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Lawrenceville Main Street<br>AI Donor Engagement Chatbot</h1>
+  <div class="description">
+    <strong>Welcome, Lawrenceville Main Street team!</strong><br>
+    This AI chatbot helps you generate personalized, actionable donor outreach strategies.<br><br>
+    <b>How to use:</b><br>
+    1. Click <b>"Launch Chatbot"</b> below.<br>
+    2. Fill in donor information in the chat window.<br>
+    3. Receive tailored engagement ideas and email drafts to strengthen donor relationships.<br><br>
+    <span style="color:#194977;"><b>For internal, staff use only.</b></span>
+  </div>
+  <!-- Chatbot launch button -->
+  <button id="chat-launch" data-buildship-chat-widget-button>
+    Launch Chatbot
+  </button>
+  <footer>
+    Powered by BuildShip &mdash; Custom AI tool developed for Lawrenceville Main Street<br>
+    <span style="font-size:0.88em;">For questions or technical support, contact [Your Name/Email]</span>
+  </footer>
+  <script>
+    window.addEventListener("load", () => {
+      window.buildShipChatWidget.config.url =
+        "https://hrmw9b.buildship.run/executeWorkflow/505pze1D0jSaNROVQ8Lb/df26a9ec-e580-43ca-b676-e04d22f6b41e";
+      window.buildShipChatWidget.config.widgetTitle = "LMS Donor Chat";
+      window.buildShipChatWidget.config.greetingMessage =
+        "Hi! I’m your AI donor engagement assistant. Enter donor details and I’ll suggest outreach strategies and email drafts for Lawrenceville Main Street.";
+      window.buildShipChatWidget.config.responseIsAStream = false;
+      window.buildShipChatWidget.config.closeOnOutsideClick = true;
+      window.buildShipChatWidget.config.openOnLoad = false;
+      window.buildShipChatWidget.config.disableErrorAlert = false;
+      window.buildShipChatWidget.config.buttonName = "Launch Chatbot";
+      window.buildShipChatWidget.config.theme = {
+        accent: "#1c87d1",
+        bg: "#f4f7fb",
+        text: "#222"
+      };
+    });
+  </script>
+</body>
+</html>
