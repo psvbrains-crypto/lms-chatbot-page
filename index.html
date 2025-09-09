@@ -1,132 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lawrenceville Main Street AI Donor Engagement Chatbot</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Lawrenceville Main Street Donor Chat</title>
   <script src="https://unpkg.com/@buildshipapp/chat-widget@^1" defer></script>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
   <style>
+    :root {
+      --primary: #1c74d1;
+      --primary-dark: #17437c;
+      --secondary: #81e6fd;
+      --bg: #ecf6ff;
+      --white: #fff;
+      --card-shadow: 0 6px 32px rgb(0 72 190 / 9%), 0 1.5px 4px rgba(20,47,83,0.05);
+    }
+    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: #f5f9fc;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      color: #1f2937;
+      margin:0;
+      min-height:100vh;
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(120deg, var(--primary) 20%, var(--secondary) 80%);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #183153;
+      overflow-x: hidden;
     }
     header {
-      background: linear-gradient(90deg, #1c74d1, #3b82f6);
-      color: white;
-      padding: 1.8rem 2rem;
-      text-align: center;
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      user-select: none;
-    }
-    main {
-      flex: 1;
-      max-width: 680px;
-      margin: 2rem auto 3rem auto;
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-      padding: 2rem 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .intro {
-      font-size: 1.15rem;
-      line-height: 1.6;
-      color: #374151;
-    }
-    .chat-launcher {
+      width: 100vw;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(9px);
       display: flex;
+      align-items: center;
       justify-content: center;
+      gap: 1.2rem;
+      padding: 2.4rem 0 1.2rem 0;
+      box-shadow: 0 2px 30px 0 rgba(0,0,0,0.09);
     }
-    button#chat-launch {
-      background-color: #2563eb;
+    header .logo {
+      font-size: 2.7rem;
+      color: var(--white);
+      animation: spin 8s linear infinite;
+    }
+    header h1 {
+      color: var(--white);
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin: 0;
+      text-shadow: 0 4px 27px rgba(0,0,0,0.11);
+      transition: color 0.2s;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% {transform: rotate(360deg);}
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.1fr;
+      gap: 2.2rem;
+      align-items: stretch;
+      min-height: 440px;
+    }
+    .main-card {
+      background: var(--white);
+      box-shadow: var(--card-shadow);
+      border-radius: 18px;
+      padding: 2.7rem 2.3rem 1.9rem 2.3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 390px;
+      position: relative;
+      overflow: visible;
+      margin-bottom: 2rem;
+    }
+    .main-card .intro {
+      font-size: 1.18rem;
+      line-height: 1.7;
+      margin-bottom: 1.3rem;
+      color: #223959;
+      text-align: left;
+      font-weight: 500;
+      letter-spacing: .01em;
+      animation: fadein 1.2s;
+    }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity:1; transform: translateY(0);}
+    }
+    .instructions, .format-sample {
+      margin-bottom: 1.6rem;
+      border-radius: 12px;
+      background: linear-gradient(97deg, #e2f2ff93 30%, #b2f7ffe0 80%);
+      padding: 1.15em 1.45em;
+      box-shadow: 0 1.5px 6px rgba(120,180,250,0.06);
+      transition: background 0.16s;
+      font-size:1.08rem;
+    }
+    .instructions strong {
+      color: var(--primary);
+      font-size:1.17rem;
+      display:block;
+      margin-bottom:6px;
+    }
+    .format-sample pre {
+      margin: 0.7em 0 0 0;
+      font-size: 1em;
+      background: #f7fafc;
+      border-radius: 6px;
+      padding: 0.7em 1.1em;
+      color: #054978;
+      overflow-x: auto;
+      box-shadow: 0 1.5px 7px rgba(0,42,75,0.04);
+      border-left: 3px solid var(--primary);
+    }
+    .btn-launch {
+      background: linear-gradient(96deg, var(--primary) 75%, var(--primary-dark) 120%);
+      color: #fff; font-size: 1.3em;
+      font-weight: bold;
       border: none;
-      padding: 1.1rem 2.5rem;
-      border-radius: 10px;
-      color: white;
-      font-size: 1.2rem;
-      font-weight: 600;
+      border-radius: 8px;
+      padding: 1em 2.7em;
+      margin-top: .8em;
+      box-shadow: 0 5px 16px rgb(44 128 255/14%);
       cursor: pointer;
-      transition: background-color 0.22s ease;
-      box-shadow: 0 4px 12px rgb(37 99 235 / 0.45);
+      transition: background 0.18s, transform 0.14s;
+      outline: none;
+      display:block;
+      margin-left:auto;
+      margin-right:auto;
     }
-    button#chat-launch:hover {
-      background-color: #1e40af;
-      box-shadow: 0 8px 16px rgb(30 64 175 / 0.5);
+    .btn-launch:active, .btn-launch:focus { transform: scale(0.97);}
+    .btn-launch:hover { background: linear-gradient(96deg, #288ffe 70%, #17437c 130%);}
+    .tips-card {
+      background: linear-gradient(120deg, #e0ecff 65%, #edfbf9 120%);
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      padding: 2.2rem 1.8rem;
+      font-size: 1.08rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 320px;
+    }
+    .tips-card h2 {
+      color: var(--primary-dark);
+      margin-top: 0;
+      margin-bottom: 19px;
+      font-size: 1.33rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.56em;
+    }
+    .tips-card ul {
+      padding-left: 1.12em;
+      margin-bottom: 0;
+      margin-top: 0.8em;
+    }
+    .tips-card ul li {
+      margin: 0.76em 0;
+      line-height: 1.6;
+    }
+    .tips-card .impact {
+      background: #cdf5fa;
+      color: #1c4666;
+      border-left: 5px solid var(--primary);
+      border-radius: 7px;
+      font-size: 1.03em;
+      padding: 0.55em 0.9em;
+      margin-top: 1em;
+      font-style: italic;
     }
     footer {
+      margin-top: 0;
+      padding: 2.2em 0 1em 0;
       text-align: center;
-      font-size: 0.9rem;
-      color: #6b7280;
-      padding: 1rem;
-      border-top: 1px solid #e5e7eb;
-      margin-top: auto;
-      user-select: none;
+      color: #2469aa;
+      font-size: 1.01em;
+      background: linear-gradient(90deg,#dddffc 0%,#e2f8fd 100%);
+      border-top: 1.2px solid #e8eaf6;
     }
-    a.support {
-      color: #2563eb;
-      font-weight: 600;
-      text-decoration: none;
+    .footer-contact {
+      margin-top: 0.3em;
+      color: #15639e;
+      font-size: 0.94em;
+      opacity: 0.89;
     }
-    a.support:hover {
-      text-decoration: underline;
+    @media (max-width: 950px) {
+      .container { grid-template-columns: 1fr; }
+      .main-card { min-height: 320px;}
+      .tips-card { min-height: 160px;}
     }
-    @media (max-width: 600px) {
-      main {
-        margin: 1rem;
-        padding: 1rem;
-        box-shadow: none;
-        border-radius: 10px;
-      }
-      .intro {
-        font-size: 1rem;
-      }
-      button#chat-launch {
-        font-size: 1rem;
-        padding: 0.9rem 2rem;
-      }
+    @media (max-width: 650px) {
+      header { font-size: 1.1em; padding: 1.7em 1.1em 1.1em 1.1em;}
+      .container {padding: 11px;}
+      .main-card, .tips-card {padding: 1em 0.8em;}
+      .tips-card h2 {font-size: 1.08em;}
+    }
+    /* animated gradient dots */
+    .bg-animated {
+      pointer-events: none;
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100vw; height: 130px;
+      z-index:-1;
+      background: radial-gradient(circle at 16% 80%,#b2eaff70 0 44px,transparent 53px 100%),
+                  radial-gradient(circle at 88% 10%,#fcb2fa5a 0 42px, transparent 47px 100%);
+      opacity:0.36;
+      animation: dotsmove 18s infinite alternate linear;
+    }
+    @keyframes dotsmove {
+      from { background-position: 20% 65%, 80% 16%;}
+      to   { background-position: 25% 90%, 80% 30%;}
     }
   </style>
 </head>
 <body>
-  <header>Lawrenceville Main Street Donor Chat</header>
-  <main>
-    <div class="intro">
-      <p>Welcome, Lawrenceville Main Street team! Use this AI assistant to generate personalized donor outreach strategies and email drafts, helping strengthen your community relationships efficiently and effectively.</p>
-      <p><strong>Instructions:</strong> Click the “Launch Chatbot” button below, enter donor information in the table format below for optimal performance, and get tailored recommendations.</p>
-      <p><em>Expected data format example:</em></p>
-      <pre style="background:#f0f0f0; padding:10px; border-radius:8px; font-family: monospace;">
+  <header>
+    <i class="fas fa-hands-helping logo"></i>
+    <h1>Lawrenceville Main Street Donor Chat</h1>
+  </header>
+  <div class="container">
+      <section class="main-card">
+          <div class="intro">
+            Welcome, <span style="color:#2366b8;font-weight:700;">Lawrenceville Main Street</span> team! Use this next-generation AI assistant to generate personalized donor outreach strategies and tailor-made email drafts, helping you strengthen relationships and maximize your local impact.
+          </div>
+          <div class="instructions">
+              <strong><i class="fas fa-magic"></i> Instructions:</strong>
+              Click the <b>“Launch Chatbot”</b> button below, then enter donor information (one or more fields) in the recommended format for supercharged results and follow-up support on your engagement strategies!
+          </div>
+          <div class="format-sample">
+            <em>Expected data format example:</em>
+              <pre>
 Donor Name: {donor name}, Email: {email}, Business: {business name}, Last Donation Date: {dd/mm/yyyy}, Amount Donated: {$number}, Number of Total Donations: {number}, Preferred Contact Method: {email, mobile, or mail}
-      </pre>
-    </div>
-    <div class="chat-launcher">
-      <button id="chat-launch" data-buildship-chat-widget-button>Launch Chatbot</button>
-    </div>
-  </main>
+              </pre>
+          </div>
+          <button class="btn-launch" id="chat-launch" data-buildship-chat-widget-button>
+            🚀 Launch Chatbot
+          </button>
+      </section>
+      <aside class="tips-card">
+          <h2><i class="fas fa-lightbulb"></i> Smart Usage Tips</h2>
+          <ul>
+            <li>Provide as much donor detail as you can—the more specific, the smarter the recommendations.</li>
+            <li>Use follow-ups! After getting initial ideas, ask the bot for clarification, sample messages, or campaign planning help.</li>
+            <li>Be creative—this AI is optimized for real nonprofit problems like retention, recognition, and partnership building.</li>
+          </ul>
+          <div class="impact">
+            Making Lawrence stronger—one conversation at a time.
+          </div>
+      </aside>
+  </div>
+  <div class="bg-animated"></div>
   <footer>
-    Powered by BuildShip &mdash; Custom AI tool developed for Lawrenceville Main Street.<br/>
-    <a href="mailto:youremail@example.com" class="support">Contact support</a>
+    Powered by BuildShip &mdash; AI tool developed for Lawrenceville Main Street.<br/>
+    <span class="footer-contact">For help, contact your LMS Innovation Team or <a href="mailto:youremail@example.com">project admin</a></span>
   </footer>
-
   <script>
     window.addEventListener("load", () => {
       window.buildShipChatWidget.config.url =
         "https://hrmw9b.buildship.run/executeWorkflow/505pze1D0jSaNROVQ8Lb/df26a9ec-e580-43ca-b676-e04d22f6b41e";
-
-      // Update the widget title and greeting message:
       window.buildShipChatWidget.config.widgetTitle = "Lawrenceville Main Street Donor Chat";
       window.buildShipChatWidget.config.greetingMessage =
         "Hi! I’m your AI donor engagement assistant. Enter donor details and I’ll suggest outreach strategies and email drafts for Lawrenceville Main Street. Please provide data in table format like this for optimal performance: \"Donor Name: {donor name}, Email: {email}, Business: {business name}, Last Donation Date: {dd/mm/yyyy}, Amount Donated: {$number}, Number of Total Donations: {number}, Preferred Contact Method: {email, mobile, or mail}\".";
@@ -134,9 +276,9 @@ Donor Name: {donor name}, Email: {email}, Business: {business name}, Last Donati
       window.buildShipChatWidget.config.closeOnOutsideClick = true;
       window.buildShipChatWidget.config.openOnLoad = false;
       window.buildShipChatWidget.config.disableErrorAlert = false;
-      window.buildShipChatWidget.config.buttonName = "Launch Chatbot";
+      window.buildShipChatWidget.config.buttonName = "🚀 Launch Chatbot";
       window.buildShipChatWidget.config.theme = {
-        accent: "#2563eb",
+        accent: "#1c74d1",
         bg: "#f5f9fc",
         text: "#1f2937"
       };
