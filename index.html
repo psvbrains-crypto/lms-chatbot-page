@@ -59,13 +59,22 @@
       100% {transform: rotate(360deg);}
     }
     .container {
-      max-width: 1200px;
+      width: 100%;
+      max-width: 1100px;
       margin: 2rem auto 0 auto;
-      display: grid;
-      grid-template-columns: 2fr 1.1fr;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 2.2rem;
-      align-items: stretch;
       min-height: 440px;
+      padding: 0 24px; /* Adds breathing room on sides */
+    }
+    @media (min-width: 1080px) {
+      .container {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+      }
     }
     .main-card {
       background: var(--white);
@@ -75,10 +84,12 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-height: 390px;
+      min-width: 340px;
+      max-width: 545px;
+      width:100%;
       position: relative;
-      overflow: visible;
       margin-bottom: 2rem;
+      box-sizing: border-box;
     }
     .main-card .intro {
       font-size: 1.18rem;
@@ -148,7 +159,10 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      min-height: 320px;
+      min-width: 260px;
+      max-width: 340px;
+      width:100%;
+      box-sizing: border-box;
     }
     .tips-card h2 {
       color: var(--primary-dark);
@@ -196,9 +210,16 @@
       opacity: 0.89;
     }
     @media (max-width: 950px) {
-      .container { grid-template-columns: 1fr; }
-      .main-card { min-height: 320px;}
-      .tips-card { min-height: 160px;}
+      .container {
+        flex-direction: column;
+        gap: 2.2rem;
+        align-items: center;
+      }
+      .main-card, .tips-card {
+        width: 100%;
+        max-width: none;
+      }
+      .tips-card { min-width: 0;}
     }
     @media (max-width: 650px) {
       header { font-size: 1.1em; padding: 1.7em 1.1em 1.1em 1.1em;}
@@ -206,7 +227,6 @@
       .main-card, .tips-card {padding: 1em 0.8em;}
       .tips-card h2 {font-size: 1.08em;}
     }
-    /* animated gradient dots */
     .bg-animated {
       pointer-events: none;
       position: fixed;
@@ -230,35 +250,35 @@
     <h1>Lawrenceville Main Street Donor Chat</h1>
   </header>
   <div class="container">
-      <section class="main-card">
-          <div class="intro">
-            Welcome, <span style="color:#2366b8;font-weight:700;">Lawrenceville Main Street</span> team! Use this next-generation AI assistant to generate personalized donor outreach strategies and tailor-made email drafts, helping you strengthen relationships and maximize your local impact.
-          </div>
-          <div class="instructions">
-              <strong><i class="fas fa-magic"></i> Instructions:</strong>
-              Click the <b>“Launch Chatbot”</b> button below, then enter donor information (one or more fields) in the recommended format for supercharged results and follow-up support on your engagement strategies!
-          </div>
-          <div class="format-sample">
-            <em>Expected data format example:</em>
-              <pre>
+    <section class="main-card">
+        <div class="intro">
+          Welcome, <span style="color:#2366b8;font-weight:700;">Lawrenceville Main Street</span> team! Use this next-generation AI assistant to generate personalized donor outreach strategies and tailor-made email drafts, helping you strengthen relationships and maximize your local impact.
+        </div>
+        <div class="instructions">
+            <strong><i class="fas fa-magic"></i> Instructions:</strong>
+            Click the <b>“Launch Chatbot”</b> button below, then enter donor information (one or more fields) in the recommended format for supercharged results and follow-up support on your engagement strategies!
+        </div>
+        <div class="format-sample">
+          <em>Expected data format example:</em>
+            <pre>
 Donor Name: {donor name}, Email: {email}, Business: {business name}, Last Donation Date: {dd/mm/yyyy}, Amount Donated: {$number}, Number of Total Donations: {number}, Preferred Contact Method: {email, mobile, or mail}
-              </pre>
-          </div>
-          <button class="btn-launch" id="chat-launch" data-buildship-chat-widget-button>
-            🚀 Launch Chatbot
-          </button>
-      </section>
-      <aside class="tips-card">
-          <h2><i class="fas fa-lightbulb"></i> Smart Usage Tips</h2>
-          <ul>
-            <li>Provide as much donor detail as you can—the more specific, the smarter the recommendations.</li>
-            <li>Use follow-ups! After getting initial ideas, ask the bot for clarification, sample messages, or campaign planning help.</li>
-            <li>Be creative—this AI is optimized for real nonprofit problems like retention, recognition, and partnership building.</li>
-          </ul>
-          <div class="impact">
-            Making Lawrence stronger—one conversation at a time.
-          </div>
-      </aside>
+            </pre>
+        </div>
+        <button class="btn-launch" id="chat-launch" data-buildship-chat-widget-button>
+          🚀 Launch Chatbot
+        </button>
+    </section>
+    <aside class="tips-card">
+        <h2><i class="fas fa-lightbulb"></i> Smart Usage Tips</h2>
+        <ul>
+          <li>Provide as much donor detail as you can—the more specific, the smarter the recommendations.</li>
+          <li>Use follow-ups! After getting initial ideas, ask the bot for clarification, sample messages, or campaign planning help.</li>
+          <li>Be creative—this AI is optimized for real nonprofit problems like retention, recognition, and partnership building.</li>
+        </ul>
+        <div class="impact">
+          Making Lawrence stronger—one conversation at a time.
+        </div>
+    </aside>
   </div>
   <div class="bg-animated"></div>
   <footer>
