@@ -8,7 +8,6 @@
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
   <style>
     :root {
       --primary: #1c74d1;
@@ -105,7 +104,7 @@
       from { opacity: 0; transform: translateY(30px);}
       to { opacity:1; transform: translateY(0);}
     }
-    .instructions, .format-sample {
+    .instructions {
       margin-bottom: 1.6rem;
       border-radius: 12px;
       background: linear-gradient(97deg, #e2f2ff93 30%, #b2f7ffe0 80%);
@@ -119,17 +118,6 @@
       font-size:1.17rem;
       display:block;
       margin-bottom:6px;
-    }
-    .format-sample pre {
-      margin: 0.7em 0 0 0;
-      font-size: 1em;
-      background: #f7fafc;
-      border-radius: 6px;
-      padding: 0.7em 1.1em;
-      color: #054978;
-      overflow-x: auto;
-      box-shadow: 0 1.5px 7px rgba(0,42,75,0.04);
-      border-left: 3px solid var(--primary);
     }
     .btn-launch {
       background: linear-gradient(96deg, var(--primary) 75%, var(--primary-dark) 120%);
@@ -149,6 +137,22 @@
     }
     .btn-launch:active, .btn-launch:focus { transform: scale(0.97);}
     .btn-launch:hover { background: linear-gradient(96deg, #288ffe 70%, #17437c 130%);}
+    .quicktip {
+      background: #f2fbff;
+      color: #15639e;
+      border-radius: 10px;
+      font-size: 1.08em;
+      padding: 1em 1.35em;
+      margin-bottom: .5em;
+      box-shadow: 0 1.5px 6px rgba(120,180,250,0.06);
+      display: flex;
+      align-items: center;
+      gap: .7em;
+    }
+    .quicktip .fa-bolt {
+      color: #1c74d1;
+      font-size:1.08em;
+    }
     .tips-card {
       background: linear-gradient(120deg, #e0ecff 65%, #edfbf9 120%);
       border-radius: 18px;
@@ -256,13 +260,11 @@
         </div>
         <div class="instructions">
             <strong><i class="fas fa-magic"></i> Instructions:</strong>
-            Click the <b>“Launch Chatbot”</b> button below, then enter donor information (one or more fields) in the recommended format for supercharged results and follow-up support on your engagement strategies!
+            Click the <b>“Launch Chatbot”</b> button below and ask any donor engagement question or provide donor details in any format. The AI will extract key info and respond with tailored outreach ideas and messages.
         </div>
-        <div class="format-sample">
-          <em>Expected data format example:</em>
-            <pre>
-Donor Name: {donor name}, Email: {email}, Business: {business name}, Last Donation Date: {dd/mm/yyyy}, Amount Donated: {$number}, Number of Total Donations: {number}, Preferred Contact Method: {email, mobile, or mail}
-            </pre>
+        <div class="quicktip">
+            <i class="fas fa-bolt"></i>
+            <span>Tip: You can be conversational—just type what you know, and follow up for clarifications or specific scenarios.</span>
         </div>
         <button class="btn-launch" id="chat-launch" data-buildship-chat-widget-button>
           🚀 Launch Chatbot
